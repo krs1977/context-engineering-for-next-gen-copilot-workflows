@@ -1,7 +1,7 @@
 [
   {
     "TSName": "Valid Patient Creation with All Fields",
-    "_comments": "Iteration-1 - Test successful creation of a patient with all valid required and optional fields - Expected HTTP 201 with patient JSON response - Validation: Response contains patient_name and success indicator",
+    "_comments": "Iteration-1 - Test successful creation of a patient with all valid required and optional fields - Expected: HTTP 201 with patient JSON - Validation: Response contains patient_name and successful creation",
     "_validation_type": "Functional +ve",
     "username": "Administrator",
     "password": "admin",
@@ -18,7 +18,7 @@
   },
   {
     "TSName": "Valid Patient Creation with Minimal Required Fields",
-    "_comments": "Iteration-1 - Test successful creation with only required fields (patient_name, gender, date_of_birth) - Expected HTTP 201 - Validation: Patient created successfully with minimal data",
+    "_comments": "Iteration-1 - Test successful creation of a patient with only required fields - Expected: HTTP 201 with patient JSON - Validation: Response contains patient_name and successful creation",
     "_validation_type": "Functional +ve",
     "username": "Administrator",
     "password": "admin",
@@ -31,15 +31,15 @@
     "responseTextForCreatePatient": "\"patient_name\":\"Jane Smith\""
   },
   {
-    "TSName": "Valid Patient Creation with Other Gender",
-    "_comments": "Iteration-1 - Test creation with gender set to 'Other' - Expected HTTP 201 - Validation: System accepts non-binary gender option",
+    "TSName": "Patient Creation with Other Gender",
+    "_comments": "Iteration-1 - Test successful creation of a patient with 'Other' gender option - Expected: HTTP 201 with patient JSON - Validation: Response contains patient_name and gender 'Other'",
     "_validation_type": "Functional +ve",
     "username": "Administrator",
     "password": "admin",
     "body": {
       "patient_name": "Alex Johnson",
       "gender": "Other",
-      "date_of_birth": "1992-03-08",
+      "date_of_birth": "1992-08-30",
       "email": "alex.johnson@example.com"
     },
     "responseCodeForCreatePatient": 201,
@@ -47,7 +47,7 @@
   },
   {
     "TSName": "Missing Required Field - Patient Name",
-    "_comments": "Iteration-1 - Test validation when patient_name is missing - Expected HTTP 400 Bad Request - Validation: Error message indicates missing required field",
+    "_comments": "Iteration-1 - Test validation of missing required patient_name field - Expected: HTTP 400 Bad Request - Validation: Error message about missing patient_name",
     "_validation_type": "Functional -ve",
     "username": "Administrator",
     "password": "admin",
@@ -60,7 +60,7 @@
   },
   {
     "TSName": "Missing Required Field - Gender",
-    "_comments": "Iteration-1 - Test validation when gender is missing - Expected HTTP 400 Bad Request - Validation: Error indicates gender is required",
+    "_comments": "Iteration-1 - Test validation of missing required gender field - Expected: HTTP 400 Bad Request - Validation: Error message about missing gender",
     "_validation_type": "Functional -ve",
     "username": "Administrator",
     "password": "admin",
@@ -73,7 +73,7 @@
   },
   {
     "TSName": "Missing Required Field - Date of Birth",
-    "_comments": "Iteration-1 - Test validation when date_of_birth is missing - Expected HTTP 400 Bad Request - Validation: Error indicates date_of_birth is required",
+    "_comments": "Iteration-1 - Test validation of missing required date_of_birth field - Expected: HTTP 400 Bad Request - Validation: Error message about missing date_of_birth",
     "_validation_type": "Functional -ve",
     "username": "Administrator",
     "password": "admin",
@@ -86,12 +86,12 @@
   },
   {
     "TSName": "Invalid Gender Value",
-    "_comments": "Iteration-1 - Test validation with invalid gender not in enum (Male, Female, Other) - Expected HTTP 400 - Validation: Error message about invalid gender value",
+    "_comments": "Iteration-1 - Test validation of invalid gender enum value - Expected: HTTP 400 Bad Request - Validation: Error message about invalid gender value",
     "_validation_type": "Functional -ve",
     "username": "Administrator",
     "password": "admin",
     "body": {
-      "patient_name": "Test Patient",
+      "patient_name": "Invalid Gender Patient",
       "gender": "Unknown",
       "date_of_birth": "1990-05-25"
     },
@@ -99,67 +99,67 @@
     "responseTextForCreatePatient": "gender"
   },
   {
-    "TSName": "Invalid Date Format",
-    "_comments": "Iteration-1 - Test with invalid date format (not ISO format) - Expected HTTP 400 - Validation: Date format validation error",
-    "_validation_type": "Functional -ve",
-    "username": "Administrator",
-    "password": "admin",
-    "body": {
-      "patient_name": "Test Patient",
-      "gender": "Male",
-      "date_of_birth": "25/05/1990"
-    },
-    "responseCodeForCreatePatient": 400,
-    "responseTextForCreatePatient": "date_of_birth"
-  },
-  {
     "TSName": "Invalid Email Format",
-    "_comments": "Iteration-1 - Test with malformed email address - Expected HTTP 400 - Validation: Email format validation error",
+    "_comments": "Iteration-1 - Test validation of invalid email format - Expected: HTTP 400 Bad Request - Validation: Error message about invalid email format",
     "_validation_type": "Functional -ve",
     "username": "Administrator",
     "password": "admin",
     "body": {
-      "patient_name": "Test Patient",
-      "gender": "Male",
+      "patient_name": "Invalid Email Patient",
+      "gender": "Female",
       "date_of_birth": "1990-05-25",
-      "email": "invalid-email"
+      "email": "invalid-email-format"
     },
     "responseCodeForCreatePatient": 400,
     "responseTextForCreatePatient": "email"
   },
   {
     "TSName": "Invalid Blood Group",
-    "_comments": "Iteration-1 - Test with blood group not in valid enum values - Expected HTTP 400 - Validation: Blood group validation error",
+    "_comments": "Iteration-1 - Test validation of invalid blood group enum value - Expected: HTTP 400 Bad Request - Validation: Error message about invalid blood group",
     "_validation_type": "Functional -ve",
     "username": "Administrator",
     "password": "admin",
     "body": {
-      "patient_name": "Test Patient",
+      "patient_name": "Invalid Blood Group Patient",
       "gender": "Male",
       "date_of_birth": "1990-05-25",
-      "blood_group": "X+"
+      "blood_group": "Z+"
     },
     "responseCodeForCreatePatient": 400,
     "responseTextForCreatePatient": "blood_group"
   },
   {
-    "TSName": "Duplicate Patient Email",
-    "_comments": "Iteration-1 - Test creating patient with duplicate email address - Expected HTTP 409 Conflict - Validation: Error indicates patient with email already exists",
+    "TSName": "Invalid Date of Birth Format",
+    "_comments": "Iteration-1 - Test validation of invalid date format - Expected: HTTP 400 Bad Request - Validation: Error message about invalid date format",
     "_validation_type": "Functional -ve",
     "username": "Administrator",
     "password": "admin",
     "body": {
-      "patient_name": "Duplicate Test",
+      "patient_name": "Invalid Date Patient",
       "gender": "Female",
-      "date_of_birth": "1988-07-20",
+      "date_of_birth": "25-05-1990"
+    },
+    "responseCodeForCreatePatient": 400,
+    "responseTextForCreatePatient": "date_of_birth"
+  },
+  {
+    "TSName": "Duplicate Patient Email",
+    "_comments": "Iteration-1 - Test duplicate patient creation with same email - Expected: HTTP 409 Conflict - Validation: Error message about existing patient or duplicate email",
+    "_validation_type": "Functional -ve",
+    "username": "Administrator",
+    "password": "admin",
+    "body": {
+      "patient_name": "Duplicate Email Patient",
+      "gender": "Male",
+      "date_of_birth": "1988-03-10",
       "email": "john.doe@example.com"
     },
     "responseCodeForCreatePatient": 409,
     "responseTextForCreatePatient": "already exists"
   },
   {
-    "TSName": "Empty String in Required Fields",
-    "_comments": "Iteration-1 - Test with empty string for patient_name - Expected HTTP 400 - Validation: Empty required fields should be rejected",
+    "TSName": "Empty Patient Name",
+    "_comments": "Iteration-1 - Test edge case with empty patient name - Expected: HTTP 400 Bad Request - Validation: Error message about empty or invalid patient_name",
     "_validation_type": "Edge Case",
     "username": "Administrator",
     "password": "admin",
@@ -172,36 +172,23 @@
     "responseTextForCreatePatient": "patient_name"
   },
   {
-    "TSName": "Null Values in Required Fields",
-    "_comments": "Iteration-1 - Test with null value for gender field - Expected HTTP 400 - Validation: Null required fields should be rejected",
+    "TSName": "Empty Email Field",
+    "_comments": "Iteration-1 - Test edge case with empty email string - Expected: HTTP 400 Bad Request or HTTP 201 (depending on validation) - Validation: System handles empty email appropriately",
     "_validation_type": "Edge Case",
     "username": "Administrator",
     "password": "admin",
     "body": {
-      "patient_name": "Test Patient",
-      "gender": null,
-      "date_of_birth": "1990-05-25"
+      "patient_name": "Empty Email Patient",
+      "gender": "Female",
+      "date_of_birth": "1990-05-25",
+      "email": ""
     },
     "responseCodeForCreatePatient": 400,
-    "responseTextForCreatePatient": "gender"
-  },
-  {
-    "TSName": "Very Long Patient Name",
-    "_comments": "Iteration-1 - Test with extremely long patient name to check field length limits - Expected HTTP 400 or truncation - Validation: System handles oversized input appropriately",
-    "_validation_type": "Edge Case",
-    "username": "Administrator",
-    "password": "admin",
-    "body": {
-      "patient_name": "ThisIsAnExtremelyLongPatientNameThatExceedsNormalFieldLengthLimitsAndShouldBeValidatedByTheSystemToPreventDataIntegrityIssuesAndDatabaseConstraintViolations",
-      "gender": "Male",
-      "date_of_birth": "1990-05-25"
-    },
-    "responseCodeForCreatePatient": 400,
-    "responseTextForCreatePatient": "patient_name"
+    "responseTextForCreatePatient": "email"
   },
   {
     "TSName": "Special Characters in Patient Name",
-    "_comments": "Iteration-1 - Test with special characters and unicode in patient name - Expected HTTP 201 or validation error - Validation: System properly handles international names",
+    "_comments": "Iteration-1 - Test edge case with special characters in patient name - Expected: HTTP 201 (if allowed) or HTTP 400 - Validation: System properly handles special characters",
     "_validation_type": "Edge Case",
     "username": "Administrator",
     "password": "admin",
@@ -214,36 +201,36 @@
     "responseTextForCreatePatient": "José María O'Connor-Smith"
   },
   {
-    "TSName": "Future Date of Birth",
-    "_comments": "Iteration-1 - Test with future date of birth - Expected HTTP 400 - Validation: Birth date cannot be in the future",
+    "TSName": "Very Long Patient Name",
+    "_comments": "Iteration-1 - Test edge case with maximum length patient name - Expected: HTTP 201 (if within limits) or HTTP 400 - Validation: System enforces name length limits",
     "_validation_type": "Edge Case",
     "username": "Administrator",
     "password": "admin",
     "body": {
-      "patient_name": "Future Baby",
+      "patient_name": "This Is A Very Long Patient Name That Tests The Maximum Length Limit For Patient Names In The Healthcare System Database",
       "gender": "Female",
+      "date_of_birth": "1990-05-25"
+    },
+    "responseCodeForCreatePatient": 400,
+    "responseTextForCreatePatient": "patient_name"
+  },
+  {
+    "TSName": "Future Date of Birth",
+    "_comments": "Iteration-1 - Test edge case with future birth date - Expected: HTTP 400 Bad Request - Validation: Error message about invalid future birth date",
+    "_validation_type": "Edge Case",
+    "username": "Administrator",
+    "password": "admin",
+    "body": {
+      "patient_name": "Future Born Patient",
+      "gender": "Male",
       "date_of_birth": "2030-01-01"
     },
     "responseCodeForCreatePatient": 400,
     "responseTextForCreatePatient": "date_of_birth"
   },
   {
-    "TSName": "Very Old Date of Birth",
-    "_comments": "Iteration-1 - Test with extremely old birth date (150+ years ago) - Expected validation response - Validation: System handles edge case birth dates",
-    "_validation_type": "Edge Case",
-    "username": "Administrator",
-    "password": "admin",
-    "body": {
-      "patient_name": "Very Old Patient",
-      "gender": "Other",
-      "date_of_birth": "1870-01-01"
-    },
-    "responseCodeForCreatePatient": 400,
-    "responseTextForCreatePatient": "date_of_birth"
-  },
-  {
     "TSName": "SQL Injection in Patient Name",
-    "_comments": "Iteration-1 - Test SQL injection attempt in patient_name field - Expected HTTP 400 or sanitized input - Validation: System prevents SQL injection attacks",
+    "_comments": "Iteration-1 - Security test attempting SQL injection through patient_name field - Expected: HTTP 400 Bad Request or safe handling - Validation: System prevents SQL injection",
     "_validation_type": "Security",
     "username": "Administrator",
     "password": "admin",
@@ -256,8 +243,8 @@
     "responseTextForCreatePatient": "invalid"
   },
   {
-    "TSName": "XSS Attempt in Patient Name",
-    "_comments": "Iteration-1 - Test cross-site scripting attempt in patient_name - Expected sanitization or rejection - Validation: System prevents XSS attacks",
+    "TSName": "XSS Injection in Patient Name",
+    "_comments": "Iteration-1 - Security test attempting XSS injection through patient_name field - Expected: HTTP 400 Bad Request or safe escaping - Validation: System prevents XSS attacks",
     "_validation_type": "Security",
     "username": "Administrator",
     "password": "admin",
@@ -270,101 +257,101 @@
     "responseTextForCreatePatient": "invalid"
   },
   {
-    "TSName": "XSS Attempt in Email Field",
-    "_comments": "Iteration-1 - Test script injection in email field - Expected sanitization or rejection - Validation: Email field is protected against XSS",
+    "TSName": "SQL Injection in Email Field",
+    "_comments": "Iteration-1 - Security test attempting SQL injection through email field - Expected: HTTP 400 Bad Request or safe handling - Validation: System prevents SQL injection",
     "_validation_type": "Security",
     "username": "Administrator",
     "password": "admin",
     "body": {
-      "patient_name": "Test Patient",
+      "patient_name": "SQL Injection Test",
       "gender": "Male",
       "date_of_birth": "1990-05-25",
-      "email": "<script>alert('xss')</script>@test.com"
+      "email": "test'; DROP TABLE Patient; --@example.com"
     },
     "responseCodeForCreatePatient": 400,
     "responseTextForCreatePatient": "email"
   },
   {
     "TSName": "Unauthorized User Access",
-    "_comments": "Iteration-1 - Test API access with invalid credentials - Expected HTTP 401 Unauthorized - Validation: Authentication is required for patient creation",
+    "_comments": "Iteration-1 - Security test with invalid credentials - Expected: HTTP 401 Unauthorized - Validation: System rejects unauthorized access",
     "_validation_type": "Security",
-    "username": "invaliduser",
-    "password": "wrongpassword",
+    "username": "invalid_user",
+    "password": "invalid_password",
     "body": {
-      "patient_name": "Test Patient",
+      "patient_name": "Unauthorized Test",
       "gender": "Male",
       "date_of_birth": "1990-05-25"
     },
     "responseCodeForCreatePatient": 401,
-    "responseTextForCreatePatient": "Unauthorized"
+    "responseTextForCreatePatient": "unauthorized"
   },
   {
-    "TSName": "Empty Credentials",
-    "_comments": "Iteration-1 - Test API access with empty username and password - Expected HTTP 401 - Validation: Empty credentials are rejected",
-    "_validation_type": "Security",
-    "username": "",
-    "password": "",
-    "body": {
-      "patient_name": "Test Patient",
-      "gender": "Male",
-      "date_of_birth": "1990-05-25"
-    },
-    "responseCodeForCreatePatient": 401,
-    "responseTextForCreatePatient": "Unauthorized"
-  },
-  {
-    "TSName": "Malformed JSON Request Body",
-    "_comments": "Iteration-1 - Test with malformed JSON in request body - Expected HTTP 400 Bad Request - Validation: System validates JSON format",
+    "TSName": "Empty Request Body",
+    "_comments": "Iteration-1 - Test edge case with completely empty request body - Expected: HTTP 400 Bad Request - Validation: Error message about missing required fields",
     "_validation_type": "Edge Case",
     "username": "Administrator",
     "password": "admin",
-    "body": "invalid json content",
+    "body": {},
     "responseCodeForCreatePatient": 400,
-    "responseTextForCreatePatient": "JSON"
+    "responseTextForCreatePatient": "required"
   },
   {
-    "TSName": "Large Mobile Number",
-    "_comments": "Iteration-1 - Test with oversized mobile number - Expected validation error - Validation: Mobile number length is validated",
+    "TSName": "Null Values in Required Fields",
+    "_comments": "Iteration-1 - Test edge case with null values in required fields - Expected: HTTP 400 Bad Request - Validation: Error message about null/invalid values",
     "_validation_type": "Edge Case",
     "username": "Administrator",
     "password": "admin",
     "body": {
-      "patient_name": "Test Patient",
-      "gender": "Male",
+      "patient_name": null,
+      "gender": null,
+      "date_of_birth": null
+    },
+    "responseCodeForCreatePatient": 400,
+    "responseTextForCreatePatient": "required"
+  },
+  {
+    "TSName": "Invalid Mobile Number Format",
+    "_comments": "Iteration-1 - Test validation of invalid mobile number format - Expected: HTTP 400 Bad Request or successful creation with warning - Validation: System handles mobile number validation",
+    "_validation_type": "Functional -ve",
+    "username": "Administrator",
+    "password": "admin",
+    "body": {
+      "patient_name": "Invalid Mobile Patient",
+      "gender": "Female",
       "date_of_birth": "1990-05-25",
-      "mobile": "123456789012345678901234567890"
+      "mobile": "invalid-mobile-123"
     },
     "responseCodeForCreatePatient": 400,
     "responseTextForCreatePatient": "mobile"
   },
   {
-    "TSName": "Valid Blood Group O-",
-    "_comments": "Iteration-1 - Test with O- blood group (universal donor) - Expected HTTP 201 - Validation: All valid blood groups are accepted",
+    "TSName": "All Blood Group Types Test - A+",
+    "_comments": "Iteration-1 - Test valid blood group A+ - Expected: HTTP 201 with patient JSON - Validation: Response contains correct blood group",
     "_validation_type": "Functional +ve",
     "username": "Administrator",
     "password": "admin",
     "body": {
-      "patient_name": "Universal Donor",
+      "patient_name": "Blood Group A+ Patient",
+      "gender": "Male",
+      "date_of_birth": "1990-05-25",
+      "blood_group": "A+"
+    },
+    "responseCodeForCreatePatient": 201,
+    "responseTextForCreatePatient": "\"blood_group\":\"A+\""
+  },
+  {
+    "TSName": "All Blood Group Types Test - O-",
+    "_comments": "Iteration-1 - Test valid blood group O- (universal donor) - Expected: HTTP 201 with patient JSON - Validation: Response contains correct blood group",
+    "_validation_type": "Functional +ve",
+    "username": "Administrator",
+    "password": "admin",
+    "body": {
+      "patient_name": "Blood Group O- Patient",
       "gender": "Female",
-      "date_of_birth": "1995-11-30",
+      "date_of_birth": "1990-05-25",
       "blood_group": "O-"
     },
     "responseCodeForCreatePatient": 201,
-    "responseTextForCreatePatient": "\"patient_name\":\"Universal Donor\""
-  },
-  {
-    "TSName": "Valid Blood Group AB+",
-    "_comments": "Iteration-1 - Test with AB+ blood group (universal recipient) - Expected HTTP 201 - Validation: All valid blood groups are accepted",
-    "_validation_type": "Functional +ve",
-    "username": "Administrator",
-    "password": "admin",
-    "body": {
-      "patient_name": "Universal Recipient",
-      "gender": "Male",
-      "date_of_birth": "1987-04-12",
-      "blood_group": "AB+"
-    },
-    "responseCodeForCreatePatient": 201,
-    "responseTextForCreatePatient": "\"patient_name\":\"Universal Recipient\""
+    "responseTextForCreatePatient": "\"blood_group\":\"O-\""
   }
 ]
